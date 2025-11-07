@@ -2,14 +2,14 @@
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
-# Copia los archivos del proyecto y restaura dependencias
-COPY *.sln .
-COPY apiExamenFinal/*.csproj apiExamenFinal/
+# Copiar y restaurar dependencias
+COPY *.csproj .
 RUN dotnet restore
 
-# Copia todo el código y compila
+# Copiar todo el código
 COPY . .
-WORKDIR /src/apiExamenFinal
+
+# Compilar y publicar
 RUN dotnet publish -c Release -o /app/publish
 
 # Etapa 2: Runtime
