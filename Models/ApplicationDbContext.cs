@@ -11,13 +11,13 @@ public partial class ApplicationDbContext : DbContext
     {
     }
 
-    public virtual DbSet<Colore> Colores { get; set; }
+    public virtual DbSet<Producto> Productos { get; set; }
 
-    public virtual DbSet<Marca> Marcas { get; set; }
+    public virtual DbSet<Sucursal> Sucursals { get; set; }
 
-    public virtual DbSet<Vehiculo> Vehiculos { get; set; }
+    public virtual DbSet<VentaDetalle> VentaDetalles { get; set; }
 
-    public DbSet<IdResponse> IdResponse { get; set; }
+    public virtual DbSet<Ventum> Venta { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -25,27 +25,32 @@ public partial class ApplicationDbContext : DbContext
             .UseCollation("latin1_swedish_ci")
             .HasCharSet("latin1");
 
-        modelBuilder.Entity<Colore>(entity =>
+        modelBuilder.Entity<Producto>(entity =>
         {
-            entity.HasKey(e => e.Idcolor).HasName("PRIMARY");
+            entity.HasKey(e => e.Id).HasName("PRIMARY");
         });
 
-        modelBuilder.Entity<Marca>(entity =>
+        modelBuilder.Entity<Sucursal>(entity =>
         {
-            entity.HasKey(e => e.Idmarca).HasName("PRIMARY");
+            entity.HasKey(e => e.Id).HasName("PRIMARY");
         });
 
-        modelBuilder.Entity<Vehiculo>(entity =>
+        modelBuilder.Entity<VentaDetalle>(entity =>
         {
-            entity.HasKey(e => e.Idvehiculo).HasName("PRIMARY");
+            entity.HasKey(e => e.Id).HasName("PRIMARY");
 
-            entity.HasOne(d => d.IdcolorNavigation).WithMany(p => p.Vehiculos)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("fk_vehiculos_colores");
+            entity.HasOne(d => d.IdProductoNavigation).WithMany(p => p.VentaDetalles).HasConstraintName("venta_detalle_producto");
 
-            entity.HasOne(d => d.IdmarcaNavigation).WithMany(p => p.Vehiculos)
+            entity.HasOne(d => d.IdVentaNavigation).WithMany(p => p.VentaDetalles).HasConstraintName("venta_detalle_venta");
+        });
+
+        modelBuilder.Entity<Ventum>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PRIMARY");
+
+            entity.HasOne(d => d.IdSucursalNavigation).WithMany(p => p.Venta)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("fk_vehiculos_marcas");
+                .HasConstraintName("venta_sucursal_fk");
         });
 
         OnModelCreatingPartial(modelBuilder);

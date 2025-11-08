@@ -9,6 +9,7 @@
 	<ItemGroup>
 		<!-- EF Core para SQL Server (si también lo usas) -->
 		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.8" />
+		<PackageReference Include="MySql.Data" Version="9.5.0" />
 
 		<!-- EF Core para MySQL (Pomelo, estable y compatible con .NET 8) -->
 		<PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="8.0.2" />
