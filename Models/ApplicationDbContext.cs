@@ -16,6 +16,7 @@ public partial class ApplicationDbContext : DbContext
     public virtual DbSet<Marca> Marcas { get; set; }
 
     public virtual DbSet<Vehiculo> Vehiculos { get; set; }
+
     public DbSet<IdResponse> IdResponse { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

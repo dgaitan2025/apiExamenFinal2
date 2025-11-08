@@ -26,7 +26,7 @@ namespace apiExamenFinal.Controllers
         }
 
         [HttpPost("Crud")]
-        public IActionResult CrudVehiculos([FromBody] Vehiculo request)
+        public IActionResult CrudVehiculos([FromBody] VehiculoDTO request)
         {
             try
             {
